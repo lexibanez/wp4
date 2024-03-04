@@ -15,7 +15,8 @@ from fileio import store_urls, retrieve_urls
 # BASE URL
 # https://epic.gsfc.nasa.gov/archive/natural
 
-def download_url(url: str) -> dict:
+def download_url():
+    url = 'https://api.nasa.gov/EPIC/api/natural/images?api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
@@ -45,12 +46,9 @@ def display_imgs():
     plt.show()
 
 
-def main():
-    url = 'https://api.nasa.gov/EPIC/api/natural/images?api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
-    data = download_url(url)
+def runearthimg():
+    data = download_url()
     parse_data(data)
     display_imgs()
 
-if __name__ == '__main__':
-    main()
 

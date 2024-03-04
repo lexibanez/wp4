@@ -38,12 +38,10 @@ def display_imgs():
     plt.show()
 
 
-def main():
+def runmarsrover():
     data = download_url()
     parse_data(data)
     display_imgs()
     
 
-if __name__ == '__main__':
-    main()
     
