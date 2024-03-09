@@ -1,8 +1,18 @@
+"""
+This module is the main entry point for the NASA Image Viewer
+application. It provides a user interface for the user to choose between
+viewing images from the Mars Rover or the Earth Polychromatic Imaging Camera.
+"""
+
+
 from marsrover import runmarsrover
 from earth import runearthimg
 
 
 def main():
+    ''' Main function to run the program. It prompts the
+        user to choose an API to view images from.
+    '''
     while True:
         user_input = input("Welcome to the NASA Image Viewer!\n"
                            "To view images from the Mars Rover, enter "
@@ -11,7 +21,7 @@ def main():
                            "enter 'Earth'.\nTo quit, enter 'Q'\nYour choice: ")
         if user_input.lower() == 'q':
             break
-        elif user_input.lower() == 'mars':
+        if user_input.lower() == 'mars':
             runmarsrover()
         elif user_input.lower() == 'earth':
             runearthimg()

@@ -1,3 +1,11 @@
+"""
+This module contains functions to download and parse data
+from the NASA Mars Rover Photos API. It uses the API key to
+make a request to the API, parses the returned data to extract
+image URLs, and then stores these URLs for later use.
+"""
+
+
 import requests
 from fileio import store_urls
 from display_imgs import display_imgs
@@ -17,7 +25,7 @@ def download_url():
     url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
 
     try:
-        response = requests.get(url)
+        response = requests.get(url, timeout=10)
         # Raises a HTTPError if the status is 4xx, 5xx
         response.raise_for_status()
         data = response.json()
@@ -30,6 +38,7 @@ def download_url():
         print("Timeout Error: ", errt)
     except requests.exceptions.RequestException as err:
         print("Something went wrong with the request: ", err)
+    return None
 
 
 def parse_data(data: dict) -> None:
