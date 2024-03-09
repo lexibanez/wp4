@@ -1,18 +1,16 @@
-import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
-from io import BytesIO
 import requests
-import random
-from fileio import store_urls, retrieve_urls
+from fileio import store_urls
+from display_imgs import display_imgs
 
 # API KEY
 # YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY
 
-# EXAMPLE URL
+# EXAMPLE URLS
 # https://api.nasa.gov/mars-photos/api/v1/rovers/opportunity/photos?sol=1000&camera=pancam&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY
 # https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=fhaz&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY
 # https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY
 # https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&camera=,mast&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY
+
 
 def download_url():
     url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
@@ -28,20 +26,7 @@ def parse_data(data: dict) -> None:
     photolinks = [photo['img_src'] for photo in data['photos']]
     store_urls(photolinks)
 
-
-def display_imgs():
-    photolinks = retrieve_urls()
-    random_image_src = random.choice(photolinks)
-    response = requests.get(random_image_src)
-    img = mpimg.imread(BytesIO(response.content), format='JPG')
-    plt.imshow(img)
-    plt.show()
-
-
 def runmarsrover():
     data = download_url()
     parse_data(data)
     display_imgs()
-    
-
-    

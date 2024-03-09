@@ -1,7 +1,6 @@
 from marsrover import runmarsrover
 from earth import runearthimg
 
-
 def main():
     while True:
         user_input = input("Welcome to the NASA Image Viewer!\nTo view images from the Mars Rover, enter 'Mars'.\nTo view images from the Earth Polychromatic Imaging Camera, enter 'Earth'.\nTo quit, enter 'Q'\nYour choice: ")
