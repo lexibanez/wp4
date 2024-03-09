@@ -13,21 +13,33 @@ from display_imgs import display_imgs
 
 
 def download_url():
+    ''' Calls the API and returns the data in json format'''
     url = 'https://api.nasa.gov/mars-photos/api/v1/rovers/curiosity/photos?sol=1000&api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
-    response = requests.get(url)
-    if response.status_code == 200:
+
+    try:
+        response = requests.get(url)
+        # Raises a HTTPError if the status is 4xx, 5xx
+        response.raise_for_status()
         data = response.json()
         return data
-    else:
-        print('Failed to get data:', response.status_code)
+    except requests.exceptions.HTTPError as errh:
+        print("HTTP Error: ", errh)
+    except requests.exceptions.ConnectionError as errc:
+        print("Error Connecting: ", errc)
+    except requests.exceptions.Timeout as errt:
+        print("Timeout Error: ", errt)
+    except requests.exceptions.RequestException as err:
+        print("Something went wrong with the request: ", err)
 
 
 def parse_data(data: dict) -> None:
+    ''' Parses the data and stores the image URLs'''
     photolinks = [photo['img_src'] for photo in data['photos']]
     store_urls(photolinks)
 
 
 def runmarsrover():
+    ''' Downloads the data, parses it and displays the images'''
     data = download_url()
     parse_data(data)
     display_imgs()
