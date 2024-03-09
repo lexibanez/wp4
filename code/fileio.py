@@ -4,6 +4,7 @@ def store_urls(urls: list) -> None:
         for url in urls:
             file.write(url + '\n')
 
+
 # retrieve urls from a file
 def retrieve_urls() -> list:
     try:
@@ -14,4 +15,3 @@ def retrieve_urls() -> list:
     except FileNotFoundError:
         print('File not found')
         return
-

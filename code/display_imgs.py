@@ -5,6 +5,7 @@ import requests
 import random
 from fileio import retrieve_urls
 
+
 def display_imgs():
     photolinks = retrieve_urls()
     random_image_src = random.choice(photolinks)

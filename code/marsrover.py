@@ -26,6 +26,7 @@ def parse_data(data: dict) -> None:
     photolinks = [photo['img_src'] for photo in data['photos']]
     store_urls(photolinks)
 
+
 def runmarsrover():
     data = download_url()
     parse_data(data)

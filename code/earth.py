@@ -16,9 +16,11 @@ from display_imgs import display_imgs
 # BASE URL
 # https://epic.gsfc.nasa.gov/archive/natural
 
+
 def download_url():
-    url = 'https://api.nasa.gov/EPIC/api/natural/images?api_key=YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
-    # url = 'https://api.nasa.gov/EPIC/api/natural/images?api_key=jeV7Q2URpD4KhP5H5i6oDNhqc1LF01WDZ7vGe6fQ'
+    apikey = 'YccDa6K8L7Vcxa9DvtEuDyWR4M49CPiEQ3xuKNaY'
+    url = f'https://api.nasa.gov/EPIC/api/natural/images?api_key={apikey}'
+
     response = requests.get(url)
     if response.status_code == 200:
         data = response.json()
@@ -34,6 +36,7 @@ def parse_data(data: dict) -> None:
     image_urls = [f"{base_url}/{datetime.strptime(item['date'], '%Y-%m-%d %H:%M:%S').year}/{datetime.strptime(item['date'], '%Y-%m-%d %H:%M:%S').month:02d}/{datetime.strptime(item['date'], '%Y-%m-%d %H:%M:%S').day:02d}/jpg/{item['image']}.jpg"for item in data]
     # Store the URLs
     store_urls(image_urls)
+
 
 def runearthimg():
     data = download_url()
